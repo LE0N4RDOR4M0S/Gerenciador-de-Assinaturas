@@ -29,12 +29,14 @@ public class UsuarioService {
     }
 
     public Usuario atualizar(Usuario usuario, UUID id) {
-        Usuario usuarioAtual = usuarioRepository.findById(id).orElse(null);
-        assert usuarioAtual != null;
-        usuarioAtual.setNome(usuario.getNome());
-        usuarioAtual.setEmail(usuario.getEmail());
-        usuarioAtual.setSenha(usuario.getSenha());
-        return usuarioRepository.save(usuario);
+        Usuario usuarioAntigo = usuarioRepository.findById(id).orElse(null);
+        if (usuarioAntigo != null) {
+            usuarioAntigo.setNome(usuario.getNome());
+            usuarioAntigo.setEmail(usuario.getEmail());
+            usuarioAntigo.setSenha(usuario.getSenha());
+            usuarioRepository.save(usuarioAntigo);
+        }
+        return usuarioAntigo;
     }
 
     public void deletar(UUID id) {
