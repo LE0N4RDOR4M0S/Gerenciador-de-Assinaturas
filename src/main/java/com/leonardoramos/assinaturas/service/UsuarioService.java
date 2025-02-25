@@ -4,8 +4,12 @@ import com.leonardoramos.assinaturas.model.Usuario;
 import com.leonardoramos.assinaturas.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -16,30 +20,36 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario buscarPorID(UUID id) {
-        return usuarioRepository.findById(id).orElse(null);
+    public Optional<Usuario> buscarPorID(String id) {
+        if (id == null) {
+            return Optional.empty();
+        }
+        return usuarioRepository.findById(UUID.fromString(id));
     }
 
-    public List<Usuario> buscarTodos() {
-        return usuarioRepository.findAll();
+    public List<Optional<Usuario>> buscarTodos() {
+        return usuarioRepository.findAll().stream().map(Optional::ofNullable).collect(Collectors.toList());
     }
 
-    public Usuario criar(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public Optional<Usuario> criar(Usuario usuario) {
+        usuario.setDataCriacao(Timestamp.from(Instant.now()));
+        return Optional.of(usuarioRepository.save(usuario));
     }
 
-    public Usuario atualizar(Usuario usuario, UUID id) {
-        Usuario usuarioAntigo = usuarioRepository.findById(id).orElse(null);
+    public Optional<Usuario> atualizar(Usuario usuario, String id) {
+        Usuario usuarioAntigo = usuarioRepository.findById(UUID.fromString(id)).orElse(null);
         if (usuarioAntigo != null) {
             usuarioAntigo.setNome(usuario.getNome());
             usuarioAntigo.setEmail(usuario.getEmail());
             usuarioAntigo.setSenha(usuario.getSenha());
             usuarioRepository.save(usuarioAntigo);
         }
-        return usuarioAntigo;
+        return Optional.of(usuarioAntigo);
     }
 
-    public void deletar(UUID id) {
-        usuarioRepository.deleteById(id);
+    public void deletar(String id) {
+        if (id != null && !id.isEmpty()) {
+            usuarioRepository.deleteById(UUID.fromString(id));
+        }
     }
 }

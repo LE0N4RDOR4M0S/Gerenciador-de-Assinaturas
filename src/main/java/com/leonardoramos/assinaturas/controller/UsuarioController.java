@@ -2,16 +2,13 @@ package com.leonardoramos.assinaturas.controller;
 
 import com.leonardoramos.assinaturas.model.Usuario;
 import com.leonardoramos.assinaturas.service.UsuarioService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
-@Controller
-@RequestMapping("/usuarios")
+@RestController
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -20,28 +17,28 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/")
-    public List<Usuario> buscarTodos() {
+    @GetMapping
+    public List<Optional<Usuario>> buscarTodos() {
         return usuarioService.buscarTodos();
     }
 
     @GetMapping("/{id}")
-    public Usuario buscarPorID(UUID id) {
+    public Optional<Usuario> buscarPorID(@PathVariable(name = "id") String id) {
         return usuarioService.buscarPorID(id);
     }
 
-    @PostMapping("/")
-    public Usuario criar(Usuario usuario) {
+    @PostMapping
+    public Optional<Usuario> criar(Usuario usuario) {
         return usuarioService.criar(usuario);
     }
 
     @PostMapping("/{id}/atualizar")
-    public Usuario atualizar(Usuario usuario, UUID id) {
+    public Optional<Usuario> atualizar(Usuario usuario,@PathVariable(name = "id") String id) {
         return usuarioService.atualizar(usuario, id);
     }
 
     @GetMapping("/{id}/deletar")
-    public void deletar(UUID id) {
+    public void deletar(@PathVariable(name = "id") String id) {
         usuarioService.deletar(id);
     }
 }
