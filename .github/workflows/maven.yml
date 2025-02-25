@@ -30,11 +30,24 @@ jobs:
       - name: Debug Docker
         run: docker --version && docker info
 
+      - name: Verify Credentials
+        run: |
+          echo "Username: ${{ secrets.DOCKER_USERNAME }}"
+          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+            echo "Erro: DOCKER_USERNAME está vazio!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then
+            echo "Erro: DOCKER_PASSWORD está vazio!"
+            exit 1
+          fi
+        shell: bash
+
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/gerenciador-de-assinaturas .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/gerenciador-de-assinaturas:latest .
 
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/gerenciador-de-assinaturas
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/gerenciador-de-assinaturas:latest
