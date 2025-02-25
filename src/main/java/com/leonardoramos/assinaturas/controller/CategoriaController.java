@@ -22,7 +22,7 @@ public class CategoriaController {
         return categoriaService.buscarTodos();
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     private Optional<Categoria> buscarPorId(@PathVariable(name = "id") String id){
         return categoriaService.buscarPorId(id);
     }
