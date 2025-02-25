@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
+      workflow_dispatch:
 
     steps:
       - name: Checkout repository
@@ -36,6 +37,10 @@ jobs:
 
       - name: Debug - Listar Variáveis de Ambiente
         run: env
+
+      - name: Testando Secret
+        run:
+          echo "TEST_SECRET: ${{ secrets.TEST_SECRET }}"
 
       - name: Verify Credentials
         run: |
