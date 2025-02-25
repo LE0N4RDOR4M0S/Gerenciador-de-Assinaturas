@@ -13,6 +13,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      id-token: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,6 +33,9 @@ jobs:
 
       - name: Debug Docker
         run: docker --version && docker info
+
+      - name: Debug - Listar Variáveis de Ambiente
+        run: env
 
       - name: Verify Credentials
         run: |
