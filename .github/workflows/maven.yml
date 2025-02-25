@@ -16,7 +16,6 @@ jobs:
     permissions:
       contents: read
       id-token: write
-      workflow_dispatch:
 
     steps:
       - name: Checkout repository
