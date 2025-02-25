@@ -6,15 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Categoria {
+@AllArgsConstructor
+public class Assinatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -22,9 +21,19 @@ public class Categoria {
     @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = true)
+    private int limit_usuario;
+
     @Column(nullable = false)
+    private double preco;
+
+    @Column(nullable = true)
+    private int duracao_dias;
+
+    @Column(nullable = true)
     private String descricao;
 
-    @OneToMany
-    private List<Assinatura> assinaturas;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
 }
