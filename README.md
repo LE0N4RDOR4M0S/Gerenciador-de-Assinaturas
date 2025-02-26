@@ -36,8 +36,8 @@ O sistema conta com tabelas para:
 **Passos:**
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
+   git clone https://github.com/LE0N4RDOR4M0S/Gerenciador-de-Assinaturas.git
+   cd Gerenciador-de-Assinaturas
    ```
 
 2. Configure o banco de dados no `application.properties` do Spring Boot.
