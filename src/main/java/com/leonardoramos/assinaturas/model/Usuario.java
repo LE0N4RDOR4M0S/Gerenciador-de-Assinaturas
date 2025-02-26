@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,4 +31,7 @@ public class Usuario {
 
     @Column(nullable = false)
     private Timestamp dataCriacao;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Usuario_Assinatura> usuarioAssinaturas;
 }

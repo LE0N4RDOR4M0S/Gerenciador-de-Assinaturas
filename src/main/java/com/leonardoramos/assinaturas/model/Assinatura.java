@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,4 +37,7 @@ public class Assinatura {
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "assinatura")
+    private List<Usuario_Assinatura> usuario_assinaturas;
 }
