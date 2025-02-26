@@ -28,12 +28,12 @@ public class CategoriaController {
     }
 
     @PostMapping
-    private Optional<Categoria> criar(Categoria categoria){
+    private Optional<Categoria> criar(@RequestBody Categoria categoria){
         return categoriaService.criar(categoria);
     }
 
     @PostMapping("{id}")
-    private Optional<Categoria> atualizar(Categoria categoria,@PathVariable(name = "id") String id){
+    private Optional<Categoria> atualizar(@RequestBody Categoria categoria,@PathVariable(name = "id") String id){
         return categoriaService.atualizar(categoria, id);
     }
 

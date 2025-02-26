@@ -28,12 +28,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Optional<Usuario> criar(Usuario usuario) {
+    public Optional<Usuario> criar(@RequestBody Usuario usuario) {
         return usuarioService.criar(usuario);
     }
 
     @PostMapping("/{id}/atualizar")
-    public Optional<Usuario> atualizar(Usuario usuario,@PathVariable(name = "id") String id) {
+    public Optional<Usuario> atualizar(@RequestBody Usuario usuario,@PathVariable(name = "id") String id) {
         return usuarioService.atualizar(usuario, id);
     }
 

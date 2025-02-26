@@ -27,12 +27,12 @@ public class AssinaturaController {
     }
 
     @PostMapping
-    public Assinatura criar(Assinatura assinatura){
+    public Assinatura criar(@RequestBody Assinatura assinatura){
         return assinaturaService.criar(assinatura);
     }
 
     @PostMapping("/{id}/atualizar")
-    public Assinatura atualizar(@PathVariable(name = "id") String id, Assinatura novaAssinatura) {
+    public Assinatura atualizar(@PathVariable(name = "id") String id, @RequestBody Assinatura novaAssinatura) {
         return assinaturaService.atualizar(id, novaAssinatura);
     }
 
