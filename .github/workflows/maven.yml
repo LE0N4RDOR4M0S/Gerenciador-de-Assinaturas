@@ -12,6 +12,7 @@ permissions:
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  TAG: 0.1.0
 
 
 jobs:
@@ -42,10 +43,10 @@ jobs:
         run: env
 
       - name: Build Docker image
-        run: docker build -t $DOCKER_USERNAME/gerenciador-de-assinaturas:latest .
+        run: docker build -t $DOCKER_USERNAME/gerenciador-de-assinaturas:$TAG .
 
       - name: Login to Docker Hub
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
       - name: Push Docker image
-        run: docker push $DOCKER_USERNAME/gerenciador-de-assinaturas:latest
+        run: docker push $DOCKER_USERNAME/gerenciador-de-assinaturas:$TAG
