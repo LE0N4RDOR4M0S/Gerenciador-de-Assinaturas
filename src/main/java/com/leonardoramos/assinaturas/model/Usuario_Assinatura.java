@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.model;
 
+import com.leonardoramos.assinaturas.Enum.Status_Assinatura;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class Usuario_Assinatura {
     private Timestamp dataFim;
 
     @Column(nullable = false)
-    private String status;
+    private Status_Assinatura status;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
