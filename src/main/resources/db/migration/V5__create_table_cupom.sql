@@ -3,6 +3,7 @@ CREATE TABLE cupom(
     codigo VARCHAR NOT NULL,
     desconto_percentual DECIMAL NOT NULL,
     expiracao TIMESTAMP NULL,
+    ativo BOOLEAN NOT NULL,
     id_assinatura UUID,
     PRIMARY KEY (id),
     CONSTRAINT FK_assinatura_TO_cupom
