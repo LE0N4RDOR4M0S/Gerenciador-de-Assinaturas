@@ -40,4 +40,7 @@ public class Assinatura {
 
     @OneToMany(mappedBy = "assinatura")
     private List<Usuario_Assinatura> usuario_assinaturas;
+
+    @OneToMany(mappedBy = "assinatura")
+    private List<Cupom> cupons;
 }
