@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.model;
 
+import com.leonardoramos.assinaturas.auditoria.AuditoriaListener;
 import com.leonardoramos.assinaturas.Enum.MetodoPagamento;
 import com.leonardoramos.assinaturas.Enum.StatusPagamento;
 import jakarta.persistence.*;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditoriaListener.class)
 public class Pagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +26,7 @@ public class Pagamento {
     @Column(nullable = false)
     private double valor;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MetodoPagamento metodo_pagamento;
 

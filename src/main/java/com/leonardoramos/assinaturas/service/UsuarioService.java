@@ -31,9 +31,9 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(Optional::ofNullable).collect(Collectors.toList());
     }
 
-    public Optional<Usuario> criar(Usuario usuario) {
+    public Usuario criar(Usuario usuario) {
         usuario.setDataCriacao(Timestamp.from(Instant.now()));
-        return Optional.of(usuarioRepository.save(usuario));
+        return usuarioRepository.save(usuario);
     }
 
     public Optional<Usuario> atualizar(Usuario usuario, String id) {

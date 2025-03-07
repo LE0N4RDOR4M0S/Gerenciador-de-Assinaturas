@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.model;
 
+import com.leonardoramos.assinaturas.auditoria.AuditoriaListener;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditoriaListener.class)
 public class Cupom {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

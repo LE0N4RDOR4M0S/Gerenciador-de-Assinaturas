@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.model;
 
+import com.leonardoramos.assinaturas.auditoria.AuditoriaListener;
 import com.leonardoramos.assinaturas.Enum.Status_Assinatura;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditoriaListener.class)
 public class Usuario_Assinatura {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
