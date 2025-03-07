@@ -12,7 +12,7 @@ permissions:
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  TAG: 0.4.0
+  TAG: 0.5.0
 
 
 jobs:
