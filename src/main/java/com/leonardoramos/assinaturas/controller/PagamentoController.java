@@ -2,6 +2,10 @@ package com.leonardoramos.assinaturas.controller;
 
 import com.leonardoramos.assinaturas.model.Pagamento;
 import com.leonardoramos.assinaturas.service.PagamentoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pagamento")
+@Tag(name = "Pagamento", description = "Gerenciamento de pagamentos")
 public class PagamentoController {
     private final PagamentoService pagamentoService;
 
@@ -19,26 +24,56 @@ public class PagamentoController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar pagamento por id", description = "Retorna o pagamento correspondente ao id informado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pagamento retornado com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+            @ApiResponse(responseCode = "404", description = "Pagamento não encontrado")
+    })
     private Pagamento buscarPorID(@PathVariable(name = "id") String id) {
         return pagamentoService.buscarPorID(id);
     }
 
     @GetMapping
+    @Operation(summary = "Buscar todos os pagamentos", description = "Retorna uma lista com todos os pagamentos cadastrados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pagamentos retornada com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+            @ApiResponse(responseCode = "404", description = "Nenhum pagamento encontrado")
+    })
     private List<Pagamento> buscarTodos() {
         return pagamentoService.buscarTodos();
     }
 
     @GetMapping("/criar")
+    @Operation(summary = "Criar um novo pagamento", description = "Cria um novo pagamento")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pagamento criado com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida")
+    })
     private Pagamento criar(Pagamento pagamento) {
         return pagamentoService.criar(pagamento);
     }
 
     @GetMapping("/{id}/atualizar")
+    @Operation(summary = "Atualizar um pagamento", description = "Atualiza um pagamento")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pagamento atualizado com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+            @ApiResponse(responseCode = "404", description = "Pagamento não encontrado")
+    })
     private Pagamento atualizar(Pagamento pagamento, @PathVariable(name = "id") String id) {
         return pagamentoService.atualizar(pagamento, id);
     }
 
     @GetMapping("/{id}/deletar")
+    @Operation(summary = "Deletar um pagamento", description = "Deleta um pagamento")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pagamento deletado com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
+            @ApiResponse(responseCode = "404", description = "Pagamento não encontrado")
+    })
     private void deletar(@PathVariable(name = "id") String id) {
         pagamentoService.deletar(id);
     }
