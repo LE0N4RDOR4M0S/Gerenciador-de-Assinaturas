@@ -1,5 +1,7 @@
 package com.leonardoramos.assinaturas.controller;
 
+import com.leonardoramos.assinaturas.dtos.Categoria.CategoriaRequestDTO;
+import com.leonardoramos.assinaturas.dtos.Categoria.CategoriaResponseDTO;
 import com.leonardoramos.assinaturas.model.Categoria;
 import com.leonardoramos.assinaturas.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +31,7 @@ public class CategoriaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Nenhuma categoria encontrada")
     })
-    private List<Optional<Categoria>> buscarTodos(){
+    private List<CategoriaResponseDTO> buscarTodos(){
         return categoriaService.buscarTodos();
     }
 
@@ -40,7 +42,7 @@ public class CategoriaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Categoria não encontrada")
     })
-    private Optional<Categoria> buscarPorId(@PathVariable(name = "id") String id){
+    private CategoriaResponseDTO buscarPorId(@PathVariable(name = "id") String id){
         return categoriaService.buscarPorId(id);
     }
 
@@ -51,7 +53,7 @@ public class CategoriaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    private Optional<Categoria> criar(@RequestBody Categoria categoria){
+    private CategoriaResponseDTO criar(@RequestBody CategoriaRequestDTO categoria){
         return categoriaService.criar(categoria);
     }
 
@@ -62,7 +64,7 @@ public class CategoriaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Categoria não encontrada")
     })
-    private Optional<Categoria> atualizar(@RequestBody Categoria categoria,@PathVariable(name = "id") String id){
+    private CategoriaResponseDTO atualizar(@RequestBody CategoriaRequestDTO categoria,@PathVariable(name = "id") String id){
         return categoriaService.atualizar(categoria, id);
     }
 

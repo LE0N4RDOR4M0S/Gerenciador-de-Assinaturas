@@ -1,10 +1,13 @@
 package com.leonardoramos.assinaturas.service;
 
+import com.leonardoramos.assinaturas.dtos.Categoria.CategoriaRequestDTO;
+import com.leonardoramos.assinaturas.dtos.Categoria.CategoriaResponseDTO;
 import com.leonardoramos.assinaturas.model.Categoria;
 import com.leonardoramos.assinaturas.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -27,27 +30,27 @@ public class CategoriaService {
      * @return Categoria correspondente ao id
      * @throws IllegalArgumentException caso o id seja inválido
      */
-    public Optional<Categoria> buscarPorId(String id){
-        return categoriaRepository.findById(UUID.fromString(id));
+    public CategoriaResponseDTO buscarPorId(String id){
+        return CategoriaResponseDTO.fromModel(Objects.requireNonNull(categoriaRepository.findById(UUID.fromString(id)).orElse(null)));
     }
 
     /**
      * Busca todas as categorias
      * @return Lista de categorias
      */
-    public List<Optional<Categoria>> buscarTodos(){
-        return categoriaRepository.findAll()
-                .stream().map(Optional::ofNullable).collect(Collectors.toList());
+    public List<CategoriaResponseDTO> buscarTodos(){
+        return CategoriaResponseDTO.fromModel(categoriaRepository.findAll());
     }
 
     /**
      * Cria uma nova categoria
-     * @param categoria categoria a ser criada
+     * @param categoriaDTO categoria a ser criada
      * @return Categoria criada
      * @throws IllegalArgumentException caso a categoria seja inválida
      */
-    public Optional<Categoria> criar(Categoria categoria){
-        return Optional.of(categoriaRepository.save(categoria));
+    public CategoriaResponseDTO criar(CategoriaRequestDTO categoriaDTO){
+        Categoria categoria = categoriaDTO.toModel();
+        return CategoriaResponseDTO.fromModel(categoriaRepository.save(categoria));
     }
 
     /**
@@ -57,14 +60,14 @@ public class CategoriaService {
      * @return Categoria atualizada
      * @throws IllegalArgumentException caso a categoria seja inválida
      */
-    public Optional<Categoria> atualizar(Categoria novaCategoria, String id){
+    public CategoriaResponseDTO atualizar(CategoriaRequestDTO novaCategoria, String id){
         Categoria categoria = categoriaRepository.findById(UUID.fromString(id)).orElse(null);
         if (categoria == null) {
             categoria.setNome(novaCategoria.getNome());
             categoria.setDescricao(novaCategoria.getDescricao());
             categoriaRepository.save(categoria);
         }
-        return Optional.of(categoria);
+        return CategoriaResponseDTO.fromModel(categoria);
     }
 
     /**
