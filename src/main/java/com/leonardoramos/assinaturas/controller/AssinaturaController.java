@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.controller;
 
+import com.leonardoramos.assinaturas.dtos.Assinatura.AssinaturaRequestDTO;
 import com.leonardoramos.assinaturas.dtos.Assinatura.AssinaturaResponseDTO;
 import com.leonardoramos.assinaturas.model.Assinatura;
 import com.leonardoramos.assinaturas.service.AssinaturaService;
@@ -51,7 +52,7 @@ public class AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    public AssinaturaResponseDTO criar(@RequestBody Assinatura assinatura){
+    public AssinaturaResponseDTO criar(@RequestBody AssinaturaRequestDTO assinatura){
         return assinaturaService.criar(assinatura);
     }
 
@@ -62,7 +63,7 @@ public class AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    public AssinaturaResponseDTO atualizar(@PathVariable(name = "id") String id, @RequestBody Assinatura novaAssinatura) {
+    public AssinaturaResponseDTO atualizar(@PathVariable(name = "id") String id, @RequestBody AssinaturaRequestDTO novaAssinatura) {
         return assinaturaService.atualizar(id, novaAssinatura);
     }
 

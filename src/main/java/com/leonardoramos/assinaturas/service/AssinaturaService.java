@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.service;
 
+import com.leonardoramos.assinaturas.dtos.Assinatura.AssinaturaRequestDTO;
 import com.leonardoramos.assinaturas.dtos.Assinatura.AssinaturaResponseDTO;
 import com.leonardoramos.assinaturas.model.Assinatura;
 import com.leonardoramos.assinaturas.repository.AssinaturaRepository;
@@ -44,11 +45,12 @@ public class AssinaturaService {
 
     /**
      * Cria uma nova assinatura
-     * @param assinatura assinatura a ser criada
+     * @param assinaturaDTO assinatura a ser criada
      * @return Assinatura criada
      * @throws IllegalArgumentException caso a assinatura seja inválida
      */
-    public AssinaturaResponseDTO criar(Assinatura assinatura){
+    public AssinaturaResponseDTO criar(AssinaturaRequestDTO assinaturaDTO){
+        Assinatura assinatura = assinaturaDTO.toModel();
         return AssinaturaResponseDTO.fromModel(assinaturaRepository.save(assinatura));
     }
 
@@ -59,7 +61,7 @@ public class AssinaturaService {
      * @return Assinatura atualizada
      * @throws IllegalArgumentException caso a assinatura seja inválida
      */
-    public AssinaturaResponseDTO atualizar(String id, Assinatura novaAssinatura) {
+    public AssinaturaResponseDTO atualizar(String id, AssinaturaRequestDTO novaAssinatura) {
         Assinatura assinatura = assinaturaRepository.findById(UUID.fromString(id)).orElse(null);
         if (assinatura != null) {
             assinatura.setNome(novaAssinatura.getNome());
@@ -67,7 +69,7 @@ public class AssinaturaService {
             assinatura.setPreco(novaAssinatura.getPreco());
             assinatura.setLimit_usuario(novaAssinatura.getLimit_usuario());
             assinatura.setDuracao_dias(novaAssinatura.getDuracao_dias());
-            assinatura.setCategoria(novaAssinatura.getCategoria());
+//            assinatura.setCategoria(novaAssinatura.getCategoria());TODO: Implementar o DTO de Categoria para atualizar
         }
         assert assinatura != null;
         return AssinaturaResponseDTO.fromModel(assinaturaRepository.save(assinatura));

@@ -31,7 +31,7 @@ public class AssinaturaRequestDTO {
 
     @NotNull
     @Schema(description = "ID da categoria da assinatura", example = "123e4567-e89b-12d3-a456-426614174000")
-    private String categoria_id;
+    private String categoria;
 
     public Assinatura toModel(){
         return Assinatura.builder()
