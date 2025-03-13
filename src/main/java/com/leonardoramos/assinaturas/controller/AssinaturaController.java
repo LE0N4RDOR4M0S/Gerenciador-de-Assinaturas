@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.controller;
 
+import com.leonardoramos.assinaturas.dtos.Assinatura.AssinaturaResponseDTO;
 import com.leonardoramos.assinaturas.model.Assinatura;
 import com.leonardoramos.assinaturas.service.AssinaturaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +29,7 @@ public class AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Nenhuma assinatura encontrada")
     })
-    public List<Assinatura> buscarTodas() {
+    public List<AssinaturaResponseDTO> buscarTodas() {
         return assinaturaService.buscarTodas();
     }
 
@@ -39,7 +40,7 @@ public class AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Assinatura não encontrada")
     })
-    public Assinatura buscarPorId(@PathVariable(name = "id") String id){
+    public AssinaturaResponseDTO buscarPorId(@PathVariable(name = "id") String id){
         return assinaturaService.buscarPorId(id);
     }
 
@@ -50,7 +51,7 @@ public class AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    public Assinatura criar(@RequestBody Assinatura assinatura){
+    public AssinaturaResponseDTO criar(@RequestBody Assinatura assinatura){
         return assinaturaService.criar(assinatura);
     }
 
@@ -61,7 +62,7 @@ public class AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    public Assinatura atualizar(@PathVariable(name = "id") String id, @RequestBody Assinatura novaAssinatura) {
+    public AssinaturaResponseDTO atualizar(@PathVariable(name = "id") String id, @RequestBody Assinatura novaAssinatura) {
         return assinaturaService.atualizar(id, novaAssinatura);
     }
 

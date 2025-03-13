@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.service;
 
+import com.leonardoramos.assinaturas.dtos.Assinatura.AssinaturaResponseDTO;
 import com.leonardoramos.assinaturas.model.Assinatura;
 import com.leonardoramos.assinaturas.repository.AssinaturaRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,16 +27,19 @@ public class AssinaturaService {
      * @return Assinatura correspondente ao id
      * @throws IllegalArgumentException caso o id seja inválido
      */
-    public Assinatura buscarPorId(String id){
-        return assinaturaRepository.findById(UUID.fromString(id)).orElse(null);
+    public AssinaturaResponseDTO buscarPorId(String id){
+        Assinatura assinatura = assinaturaRepository.findById(UUID.fromString(id)).orElse(null);
+        assert assinatura != null;
+        return AssinaturaResponseDTO.fromModel(assinatura);
     }
 
     /**
      * Busca todas as assinaturas
      * @return Lista de assinaturas
      */
-    public List<Assinatura> buscarTodas(){
-        return assinaturaRepository.findAll();
+    public List<AssinaturaResponseDTO> buscarTodas(){
+        List<Assinatura> assinaturas = assinaturaRepository.findAll();
+        return AssinaturaResponseDTO.fromModel(assinaturas);
     }
 
     /**
@@ -44,8 +48,8 @@ public class AssinaturaService {
      * @return Assinatura criada
      * @throws IllegalArgumentException caso a assinatura seja inválida
      */
-    public Assinatura criar(Assinatura assinatura){
-        return assinaturaRepository.save(assinatura);
+    public AssinaturaResponseDTO criar(Assinatura assinatura){
+        return AssinaturaResponseDTO.fromModel(assinaturaRepository.save(assinatura));
     }
 
     /**
@@ -55,7 +59,7 @@ public class AssinaturaService {
      * @return Assinatura atualizada
      * @throws IllegalArgumentException caso a assinatura seja inválida
      */
-    public Assinatura atualizar(String id, Assinatura novaAssinatura) {
+    public AssinaturaResponseDTO atualizar(String id, Assinatura novaAssinatura) {
         Assinatura assinatura = assinaturaRepository.findById(UUID.fromString(id)).orElse(null);
         if (assinatura != null) {
             assinatura.setNome(novaAssinatura.getNome());
@@ -65,7 +69,8 @@ public class AssinaturaService {
             assinatura.setDuracao_dias(novaAssinatura.getDuracao_dias());
             assinatura.setCategoria(novaAssinatura.getCategoria());
         }
-        return assinaturaRepository.save(assinatura);
+        assert assinatura != null;
+        return AssinaturaResponseDTO.fromModel(assinaturaRepository.save(assinatura));
     }
 
     /**

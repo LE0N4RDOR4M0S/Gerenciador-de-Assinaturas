@@ -2,10 +2,7 @@ package com.leonardoramos.assinaturas.model;
 
 import com.leonardoramos.assinaturas.auditoria.AuditoriaListener;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +12,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EntityListeners(AuditoriaListener.class)
 public class Assinatura {
     @Id
