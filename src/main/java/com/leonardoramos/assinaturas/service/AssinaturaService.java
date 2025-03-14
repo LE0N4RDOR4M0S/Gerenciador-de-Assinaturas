@@ -84,6 +84,12 @@ public class AssinaturaService {
         assinaturaRepository.deleteById(UUID.fromString(id));
     }
 
+    /**
+     * Busca uma assinatura pelo id
+     * @param id id da assinatura em String
+     * @return Assinatura correspondente ao id
+     * @throws IllegalArgumentException caso o id seja inválido
+     */
     public Assinatura buscarPorIdModel(String id){
         return assinaturaRepository.findById(UUID.fromString(id)).orElse(null);
     }

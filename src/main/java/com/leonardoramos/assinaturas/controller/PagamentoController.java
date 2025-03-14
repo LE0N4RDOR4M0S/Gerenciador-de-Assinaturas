@@ -2,6 +2,7 @@ package com.leonardoramos.assinaturas.controller;
 
 import com.leonardoramos.assinaturas.model.Pagamento;
 import com.leonardoramos.assinaturas.service.PagamentoService;
+import com.leonardoramos.assinaturas.dtos.Pagamento.PagamentoResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -30,7 +31,7 @@ public class PagamentoController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Pagamento não encontrado")
     })
-    private Pagamento buscarPorID(@PathVariable(name = "id") String id) {
+    private PagamentoResponseDTO buscarPorID(@PathVariable(name = "id") String id) {
         return pagamentoService.buscarPorID(id);
     }
 

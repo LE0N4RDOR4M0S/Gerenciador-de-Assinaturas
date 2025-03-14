@@ -79,4 +79,8 @@ public class UsuarioService {
             usuarioRepository.deleteById(UUID.fromString(id));
         }
     }
+
+    public Usuario buscarPorIDModel(String id){
+        return usuarioRepository.findById(UUID.fromString(id)).orElse(null);
+    }
 }

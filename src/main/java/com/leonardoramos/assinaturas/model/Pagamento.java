@@ -4,10 +4,7 @@ import com.leonardoramos.assinaturas.auditoria.AuditoriaListener;
 import com.leonardoramos.assinaturas.Enum.MetodoPagamento;
 import com.leonardoramos.assinaturas.Enum.StatusPagamento;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EntityListeners(AuditoriaListener.class)
 public class Pagamento {
     @Id

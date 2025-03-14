@@ -1,10 +1,16 @@
 package com.leonardoramos.assinaturas.service;
 
+import com.leonardoramos.assinaturas.Enum.MetodoPagamento;
+import com.leonardoramos.assinaturas.Enum.StatusPagamento;
+import com.leonardoramos.assinaturas.dtos.Pagamento.PagamentoRequestDTO;
+import com.leonardoramos.assinaturas.dtos.Pagamento.PagamentoResponseDTO;
 import com.leonardoramos.assinaturas.model.Pagamento;
 import com.leonardoramos.assinaturas.repository.PagamentoRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -14,9 +20,13 @@ import java.util.UUID;
 public class PagamentoService {
 
     private final PagamentoRepository pagamentoRepository;
+    private final AssinaturaService assinaturaService;
+    private final UsuarioService usuarioService;
 
-    public PagamentoService(PagamentoRepository pagamentoRepository) {
+    public PagamentoService(PagamentoRepository pagamentoRepository, AssinaturaService assinaturaService, UsuarioService usuarioService) {
         this.pagamentoRepository = pagamentoRepository;
+        this.assinaturaService = assinaturaService;
+        this.usuarioService = usuarioService;
     }
 
     /**
@@ -25,8 +35,9 @@ public class PagamentoService {
      * @return Pagamento correspondente ao id
      * @throws IllegalArgumentException caso o id seja inválido
      */
-    public Pagamento buscarPorID(String id) {
-        return pagamentoRepository.findById(UUID.fromString(id)).orElse(null);
+    public PagamentoResponseDTO buscarPorID(String id) {
+        return PagamentoResponseDTO.fromModel(Objects.requireNonNull(
+                pagamentoRepository.findById(UUID.fromString(id)).orElse(null)));
     }
 
     /**
@@ -74,5 +85,22 @@ public class PagamentoService {
      */
     public void deletar(String id) {
         pagamentoRepository.deleteById(UUID.fromString(id));
+    }
+
+
+    /**
+     * Converte um PagamentoRequestDTO para um Pagamento
+     * @param pagamentoDTO DTO a ser convertido
+     * @return Pagamento convertido
+     */
+    public Pagamento DTOToModel(PagamentoRequestDTO pagamentoDTO) {
+        Pagamento pagamento = new Pagamento();
+        pagamento.setValor(pagamentoDTO.getValor());
+        pagamento.setMetodo_pagamento(MetodoPagamento.valueOf(pagamentoDTO.getMetodo_pagamento()));
+        pagamento.setStatus_pagamento(StatusPagamento.valueOf(pagamentoDTO.getStatus_pagamento()));
+        pagamento.setData_pagamento(Timestamp.valueOf(pagamentoDTO.getData_pagamento()));
+        pagamento.setAssinatura(assinaturaService.buscarPorIdModel(pagamentoDTO.getAssinatura()));
+        pagamento.setUsuario(usuarioService.buscarPorIDModel(pagamentoDTO.getUsuario()));
+        return pagamento;
     }
 }
