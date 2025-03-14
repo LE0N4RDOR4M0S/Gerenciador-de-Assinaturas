@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/api/categoria")
 @Tag(name = "Categoria", description = "Gerenciamento de categorias")
 public class CategoriaController {
 

@@ -1,5 +1,7 @@
 package com.leonardoramos.assinaturas.controller;
 
+import com.leonardoramos.assinaturas.dtos.Cupom.CupomRequestDTO;
+import com.leonardoramos.assinaturas.dtos.Cupom.CupomResponseDTO;
 import com.leonardoramos.assinaturas.model.Cupom;
 import com.leonardoramos.assinaturas.service.CupomService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cupom")
+@RequestMapping("/api/cupom")
 @Tag(name = "Cupom", description = "Gerenciamento de cupons de desconto")
 public class CupomController {
 
@@ -31,7 +33,7 @@ public class CupomController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Nenhum cupom encontrado")
     })
-    public List<Cupom> buscarTodos() {
+    public List<CupomResponseDTO> buscarTodos() {
         return cupomService.buscarTodos();
     }
 
@@ -42,7 +44,7 @@ public class CupomController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Cupom não encontrado")
     })
-    public Cupom buscarPorID(String id) {
+    public CupomResponseDTO buscarPorID(String id) {
         return cupomService.buscarPorID(id);
     }
 
@@ -53,7 +55,7 @@ public class CupomController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    public Cupom criar(Cupom cupom) {
+    public CupomResponseDTO criar(CupomRequestDTO cupom) {
         return cupomService.criar(cupom);
     }
 
@@ -64,7 +66,7 @@ public class CupomController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Cupom não encontrado")
     })
-    public Cupom atualizar(Cupom cupom, String id) {
+    public CupomResponseDTO atualizar(CupomRequestDTO cupom, String id) {
         return cupomService.atualizar(cupom, id);
     }
 

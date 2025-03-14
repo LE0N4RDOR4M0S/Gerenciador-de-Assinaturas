@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuario_assinatura")
+@RequestMapping("/api/usuario_assinatura")
 @Tag(name = "Usuario_Assinatura", description = "Gerenciamento de relacionamentos entre usuário e assinatura")
 public class Usuario_AssinaturaController {
 

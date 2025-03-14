@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/api/usuario")
 @Tag(name = "Usuario", description = "Gerenciamento de usuários")
 public class UsuarioController {
 

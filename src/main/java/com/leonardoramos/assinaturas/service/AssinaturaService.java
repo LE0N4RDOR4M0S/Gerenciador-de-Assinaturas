@@ -83,5 +83,9 @@ public class AssinaturaService {
     public void deletar(String id){
         assinaturaRepository.deleteById(UUID.fromString(id));
     }
+
+    public Assinatura buscarPorIdModel(String id){
+        return assinaturaRepository.findById(UUID.fromString(id)).orElse(null);
+    }
 }
 

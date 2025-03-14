@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @Builder
@@ -29,6 +32,7 @@ public class CupomResponseDTO {
 
     @Schema(description = "Assinatura para qual o cupom é válido")
     private AssinaturaResponseDTO assinatura;
+
     public static CupomResponseDTO fromModel(Cupom cupom) {
         return CupomResponseDTO.builder()
                 .id(cupom.getId().toString())
@@ -38,6 +42,10 @@ public class CupomResponseDTO {
                 .ativo(cupom.isAtivo())
                 .assinatura(AssinaturaResponseDTO.fromModel(cupom.getAssinatura()))
                 .build();
+    }
+
+    public static List<CupomResponseDTO> fromModel(List<Cupom> cupons) {
+        return cupons.stream().map(CupomResponseDTO::fromModel).collect(Collectors.toList());
     }
 
 }
