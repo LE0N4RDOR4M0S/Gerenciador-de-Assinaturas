@@ -1,5 +1,6 @@
 package com.leonardoramos.assinaturas.controller;
 
+import com.leonardoramos.assinaturas.dtos.Pagamento.PagamentoRequestDTO;
 import com.leonardoramos.assinaturas.model.Pagamento;
 import com.leonardoramos.assinaturas.service.PagamentoService;
 import com.leonardoramos.assinaturas.dtos.Pagamento.PagamentoResponseDTO;
@@ -7,10 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,29 +40,29 @@ public class PagamentoController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Nenhum pagamento encontrado")
     })
-    private List<Pagamento> buscarTodos() {
+    private List<PagamentoResponseDTO> buscarTodos() {
         return pagamentoService.buscarTodos();
     }
 
-    @GetMapping("/criar")
+    @PostMapping("/criar")
     @Operation(summary = "Criar um novo pagamento", description = "Cria um novo pagamento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pagamento criado com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    private Pagamento criar(Pagamento pagamento) {
+    private PagamentoResponseDTO criar(@RequestBody PagamentoRequestDTO pagamento) {
         return pagamentoService.criar(pagamento);
     }
 
-    @GetMapping("/{id}/atualizar")
+    @PostMapping("/{id}/atualizar")
     @Operation(summary = "Atualizar um pagamento", description = "Atualiza um pagamento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pagamento atualizado com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Pagamento não encontrado")
     })
-    private Pagamento atualizar(Pagamento pagamento, @PathVariable(name = "id") String id) {
+    private PagamentoResponseDTO atualizar(@RequestBody PagamentoRequestDTO pagamento, @PathVariable(name = "id") String id) {
         return pagamentoService.atualizar(pagamento, id);
     }
 

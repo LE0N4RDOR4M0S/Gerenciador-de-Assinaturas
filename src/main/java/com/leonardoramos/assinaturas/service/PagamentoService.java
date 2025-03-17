@@ -44,18 +44,19 @@ public class PagamentoService {
      * Busca todos os pagamentos
      * @return Lista de pagamentos
      */
-    public List<Pagamento> buscarTodos() {
-        return pagamentoRepository.findAll();
+    public List<PagamentoResponseDTO> buscarTodos() {
+        return PagamentoResponseDTO.fromModel(pagamentoRepository.findAll());
     }
 
     /**
      * Cria um novo pagamento
-     * @param pagamento pagamento a ser criado
+     * @param pagamentoDTO pagamento a ser criado
      * @return Pagamento criado
      * @throws IllegalArgumentException caso o pagamento seja inválido
      */
-    public Pagamento criar(Pagamento pagamento) {
-        return pagamentoRepository.save(pagamento);
+    public PagamentoResponseDTO criar(PagamentoRequestDTO pagamentoDTO) {
+        Pagamento pagamento = DTOToModel(pagamentoDTO);
+        return PagamentoResponseDTO.fromModel(pagamentoRepository.save(pagamento));
     }
 
     /**
@@ -65,16 +66,16 @@ public class PagamentoService {
      * @return Pagamento atualizado
      * @throws IllegalArgumentException caso o pagamento seja inválido
      */
-    public Pagamento atualizar(Pagamento pagamento, String id) {
+    public PagamentoResponseDTO atualizar(PagamentoRequestDTO pagamento, String id) {
         Pagamento pagamentoAtual = pagamentoRepository.findById(UUID.fromString(id)).orElse(null);
         if (pagamentoAtual != null) {
-            pagamentoAtual.setMetodo_pagamento(pagamento.getMetodo_pagamento());
-            pagamentoAtual.setStatus_pagamento(pagamento.getStatus_pagamento());
-            pagamentoAtual.setData_pagamento(pagamento.getData_pagamento());
-            pagamentoAtual.setAssinatura(pagamento.getAssinatura());
-            pagamentoAtual.setUsuario(pagamento.getUsuario());
+            pagamentoAtual.setMetodo_pagamento(MetodoPagamento.valueOf(pagamento.getMetodo_pagamento()));
+            pagamentoAtual.setStatus_pagamento(StatusPagamento.valueOf(pagamento.getStatus_pagamento()));
+            pagamentoAtual.setData_pagamento(Timestamp.valueOf(pagamento.getData_pagamento()));
+            pagamentoAtual.setAssinatura(assinaturaService.buscarPorIdModel(pagamento.getAssinatura()));
+            pagamentoAtual.setUsuario(usuarioService.buscarPorIDModel(pagamento.getUsuario()));
             pagamentoAtual.setValor(pagamento.getValor());
-            return pagamentoRepository.save(pagamentoAtual);
+            return PagamentoResponseDTO.fromModel(pagamentoRepository.save(pagamentoAtual));
         }
         return null;
     }
