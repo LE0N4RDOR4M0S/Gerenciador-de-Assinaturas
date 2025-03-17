@@ -1,5 +1,7 @@
 package com.leonardoramos.assinaturas.controller;
 
+import com.leonardoramos.assinaturas.dtos.Usuario.UsuarioRequestDTO;
+import com.leonardoramos.assinaturas.dtos.Usuario.UsuarioResponseDTO;
 import com.leonardoramos.assinaturas.model.Usuario;
 import com.leonardoramos.assinaturas.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +31,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Nenhum usuário encontrado")
     })
-    public List<Optional<Usuario>> buscarTodos() {
+    public List<UsuarioResponseDTO> buscarTodos() {
         return usuarioService.buscarTodos();
     }
 
@@ -40,7 +42,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
-    public Optional<Usuario> buscarPorID(@PathVariable(name = "id") String id) {
+    public UsuarioResponseDTO buscarPorID(@PathVariable(name = "id") String id) {
         return usuarioService.buscarPorID(id);
     }
 
@@ -51,7 +53,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    public Usuario criar(@RequestBody Usuario usuario) {
+    public UsuarioResponseDTO criar(@RequestBody UsuarioRequestDTO usuario) {
         return usuarioService.criar(usuario);
     }
 
@@ -62,7 +64,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
-    public Optional<Usuario> atualizar(@RequestBody Usuario usuario,@PathVariable(name = "id") String id) {
+    public UsuarioResponseDTO atualizar(@RequestBody UsuarioRequestDTO usuario,@PathVariable(name = "id") String id) {
         return usuarioService.atualizar(usuario, id);
     }
 
