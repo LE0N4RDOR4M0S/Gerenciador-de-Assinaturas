@@ -14,9 +14,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API do Cadastro")
-                        .version("1.0")
-                        .description("Documentação da API do Cadastro de Pessoas")
+                        .title("API de gerenciamento de Assinaturas")
+                        .version("0.6.0")
+                        .description("Documentação da API do Gerenciamento de Assinaturas virtuais")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Mais informações")
