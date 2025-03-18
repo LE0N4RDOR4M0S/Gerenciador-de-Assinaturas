@@ -1,5 +1,7 @@
 package com.leonardoramos.assinaturas.controller;
 
+import com.leonardoramos.assinaturas.dtos.Usuario_Assinatura.UsuarioAssinaturaRequestDTO;
+import com.leonardoramos.assinaturas.dtos.Usuario_Assinatura.UsuarioAssinaturaResponseDTO;
 import com.leonardoramos.assinaturas.model.Usuario_Assinatura;
 import com.leonardoramos.assinaturas.service.Usuario_AssinaturaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +30,7 @@ public class Usuario_AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Nenhum usuário e assinatura encontrado")
     })
-    public List<Usuario_Assinatura> buscarTodos(){
+    public List<UsuarioAssinaturaResponseDTO> buscarTodos(){
         return usuarioAssinaturaService.buscarTodos();
     }
 
@@ -39,7 +41,7 @@ public class Usuario_AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "404", description = "Usuário e assinatura não encontrado")
     })
-    public Usuario_Assinatura buscarPorId(@PathVariable(name = "id") String id){
+    public UsuarioAssinaturaResponseDTO buscarPorId(@PathVariable(name = "id") String id){
         return usuarioAssinaturaService.buscarPorId(id);
     }
 
@@ -50,7 +52,7 @@ public class Usuario_AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    public Usuario_Assinatura criar(@RequestBody Usuario_Assinatura usuarioAssinatura){
+    public UsuarioAssinaturaResponseDTO criar(@RequestBody UsuarioAssinaturaRequestDTO usuarioAssinatura){
         return usuarioAssinaturaService.criar(usuarioAssinatura);
     }
 
@@ -61,7 +63,7 @@ public class Usuario_AssinaturaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor"),
             @ApiResponse(responseCode = "400", description = "Requisição inválida")
     })
-    public Usuario_Assinatura atualizar(@RequestBody Usuario_Assinatura novo, @PathVariable(name = "id") String id){
+    public UsuarioAssinaturaResponseDTO atualizar(@RequestBody UsuarioAssinaturaRequestDTO novo, @PathVariable(name = "id") String id){
         return usuarioAssinaturaService.atualizar(novo, id);
     }
 
