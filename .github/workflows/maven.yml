@@ -13,12 +13,12 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   TAG: 0.8.0
-  RUN_CI: true
+  ##RUN_CI: false
 
 
 jobs:
   build:
-    if: env.RUN_CI == 'true'
+    ##if: env.RUN_CI == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
