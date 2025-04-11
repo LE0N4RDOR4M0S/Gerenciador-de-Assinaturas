@@ -12,8 +12,8 @@ permissions:
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  TAG: 0.6.0
-  RUN_CI: false
+  TAG: 0.8.0
+  RUN_CI: true
 
 
 jobs:
